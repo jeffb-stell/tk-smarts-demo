@@ -1,0 +1,11 @@
+---
+<% require_relative 'kitchen-helper' %>
+
+driver:
+  name: 'ec2'
+  require_chef_omnibus: true
+  aws_ssh_key_id: <%= ENV['KITCHEN_EC2_KEYPAIR'] || 'my-default-keypair' %>
+  security_group_ids: ["<%= lookup_output('SECGROUP1', 'sg-deadbeef') %>", "<%= lookup_output('SECGROUP2', 'sg-deadbeef') %>"]
+  region: <%= ENV['AWS_REGION'] || 'us-west-1' %>
+  subnet_id: <%= lookup_output('SUBNET1', 'subnet-deadbeef') %>
+  iam_profile_name: <%= lookup_output('IAM_PROFILE', 'badprofile') %>
